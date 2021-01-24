@@ -1,0 +1,32 @@
+<?php
+
+include("./head.inc"); 
+
+$ColumnNumber = 4; // Anzahl Spalten
+$i = 1; // Wird benutzt um die Spaltenanzahl zu erkennen
+
+$mitglieder = $page->mitglieder->sort('body');
+
+echo "<h1>".$page->artikel_titel."</h1>";
+echo "<br />";
+ 
+echo '<table id="mitglieder"><tr>';
+foreach($mitglieder as $mitglied) {
+    echo '<td>';
+	if(count($mitglied->mitglieder_image)) {
+		echo '<img src ="'.$mitglied->mitglieder_image->url.'" width="120" height="172" alt="" align="top" border="0" /><br />';
+	} else {
+		echo '<img src ="'.$config->urls->templates."styles/images/portrait_placeholder.jpg".'" width="120" height="172" alt="" align="top" border="0" /><br />';
+		//echo '<img src ="http://420placehold.it/zooportraits/173-200-bw" width="120" height="172" alt="" align="top" border="0" /><br />';
+	}
+	//echo '<img src ="'.$mitglied->mitglieder_image->url.'" width="120" height="172" alt="" align="top" border="0" /><br />';
+    echo $mitglied->body;
+    echo '</td>';
+    if(($i % $ColumnNumber) == 0) {
+        echo '</tr><tr>';
+    }
+    $i++;
+}
+echo '</tr></table>';
+
+include("./foot.inc"); 
